@@ -41,4 +41,12 @@ defmodule BusiApiWeb.UserController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def signin(conn, %{"username" => username, "password" => en_password}) do
+    with {:ok, user, token} <- Guardian.authenticate(username, en_password) do
+      conn
+      |> put_status(:created)
+      |> render("user.json", %{user: user, token: token})
+    end
+  end
 end

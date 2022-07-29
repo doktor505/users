@@ -14,4 +14,25 @@ defmodule BusiApiWeb.Auth.Guardian do
     resource = Accounts.get_user!(id)
     {:ok,  resource}
   end
+
+  def authenticate(username, en_password) do
+    with {:ok, user} <- Accounts.get_by_username(username) do
+      case validate_password(en_password, user.password) do
+        true ->
+          create_token(user)
+        false ->
+          {:error, :unauthorized}
+      end
+    end
+  end
+
+  defp validate_password(en_password, password) do
+    Bcrypt.verify_pass(en_password, password)
+  end
+
+  defp create_token(user) do
+    {:ok, token, _claims} = encode_and_sign(user)
+    {:ok, user, token}
+  end
+  
 end

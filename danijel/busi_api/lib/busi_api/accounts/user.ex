@@ -23,7 +23,7 @@ defmodule BusiApi.Accounts.User do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{en_password: en_password}}
         ->
-          put_change(changeset, :password, Comeonin.Bcrypt.hashpwsalt(en_password))
+          put_change(changeset, :password, Bcrypt.hash_pwd_salt(en_password))
        _ ->
           changeset
     end
