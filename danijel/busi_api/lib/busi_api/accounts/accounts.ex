@@ -2,8 +2,8 @@ defmodule BusiApi.Accounts do
 
 
   import Ecto.Query, warn: false
-  alias BusiApi.Repo
 
+  alias BusiApi.Repo
   alias BusiApi.Accounts.User
 
 

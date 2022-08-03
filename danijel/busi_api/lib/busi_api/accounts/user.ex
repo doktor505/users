@@ -14,8 +14,8 @@ defmodule BusiApi.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:first_name, :last_name, :email, :username, :password])
-    |> validate_required([:first_name, :last_name, :email, :username, :password])
+    |> cast(attrs, [:first_name, :last_name, :email, :username, :en_password])
+    |> validate_required([:first_name, :last_name, :email, :username, :en_password])
     |> put_hashed_password
   end
 
