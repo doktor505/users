@@ -12,8 +12,8 @@ defmodule BusiApiWeb.UserController do
     render(conn, "index.json", users: users)
   end
 
-  def create(conn, %{"User" => user_params}) do
-    with {:ok, %User{} = user} <- Accounts.create_user(user_params),
+  def create(conn, %{"username" => username, "en_password" => en_password, "password" => password, "first_name" => first_name, "last_name" => last_name, "email" => email}) do
+    with {:ok, %User{} = user} <- Accounts.create_user(%{"username" => username, "en_password" => en_password, "password" => password, "first_name" => first_name, "last_name" => last_name, "email" => email}),
     {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
       conn
       |> put_status(:created)
